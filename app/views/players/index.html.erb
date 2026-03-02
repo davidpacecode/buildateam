@@ -5,8 +5,10 @@
 <h1>Players</h1>
 
 <div id="players">
-  <% @players.each do |player| %>
+  <% @players.order(:first_name).each do |player| %>
     <%= render player %>
+    <%= image_tag "headshots/#{player.headshot_file_name}" %>
+    <%= player.headshot_file_name %>
     <p>
       <%= link_to "Show this player", player %>
     </p>
