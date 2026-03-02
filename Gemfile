@@ -52,6 +52,9 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+
+  # adding hotwire spark for live reloading
+  gem "hotwire-spark"
 end
 
 group :development do
