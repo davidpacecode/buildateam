@@ -17,13 +17,38 @@
     </div>
   <% end %>
 
-  <wa-split>
-    <wa-frame><%= image_tag "headshots/#{Player.find(@team.pg_id).headshot_file_name}", size: "100" %></wa-frame>
-    <wa-frame><%= image_tag "headshots/#{Player.find(@team.sg_id).headshot_file_name}", size: "100" %></wa-frame>
-    <wa-frame><%= image_tag "headshots/#{Player.find(@team.sf_id).headshot_file_name}", size: "100" %></wa-frame>
-    <wa-frame><%= image_tag "headshots/#{Player.find(@team.pf_id).headshot_file_name}", size: "100" %></wa-frame>
-    <wa-frame><%= image_tag "headshots/#{Player.find(@team.c_id).headshot_file_name}", size: "100" %></wa-frame>
-  </wa-split>
+  <div class="wa-split">
+    <div class="wa-stack wa-align-items-center">
+      <div class="wa-frame" style="max-inline-size: 10rem;">
+        <%= image_tag "headshots/#{Player.find(@team.pg_id).headshot_file_name}", size: "100" %>
+      </div>
+      <span class="wa-heading-s">Point Guard
+    </div>
+    <div class="wa-stack wa-align-items-center">
+      <div class="wa-frame" style="max-inline-size: 10rem;">
+        <%= image_tag "headshots/#{Player.find(@team.sg_id).headshot_file_name}", size: "100" %>
+      </div>
+      <span class="wa-heading-s">Shooting Guard</span>
+    </div>
+    <div class="wa-stack wa-align-items-center">
+      <div class="wa-frame" style="max-inline-size: 10rem;">
+        <%= image_tag "headshots/#{Player.find(@team.sf_id).headshot_file_name}", size: "100" %>
+      </div>
+      <span class="wa-heading-s">Strong Forward</span>
+    </div>
+    <div class="wa-stack wa-align-items-center">
+      <div class="wa-frame" style="max-inline-size: 10rem;">
+        <%= image_tag "headshots/#{Player.find(@team.pf_id).headshot_file_name}", size: "100" %>
+      </div>
+      <span class="wa-heading-s">Power Forward</span>
+    </div>
+    <div class="wa-stack wa-align-items-center">
+      <div class="wa-frame" style="max-inline-size: 10rem;">
+        <%= image_tag "headshots/#{Player.find(@team.c_id).headshot_file_name}", size: "100" %>
+      </div>
+      <span class="wa-heading-s">Center</span>
+    </div>
+  </div>
 
 
   <div>

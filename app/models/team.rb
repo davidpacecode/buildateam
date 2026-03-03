@@ -9,10 +9,11 @@ class Team < ApplicationRecord
   after_initialize :set_defaults
 
   def set_defaults
-    self.pg_id ||= 1
-    self.sg_id ||= 2
-    self.sf_id ||= 3
-    self.pf_id ||= 4
-    self.c_id  ||= 5
+    unique_random_numbers = (1..100).to_a.sample(5)
+    self.pg_id ||= unique_random_numbers[0]
+    self.sg_id ||= unique_random_numbers[1]
+    self.sf_id ||= unique_random_numbers[2]
+    self.pf_id ||= unique_random_numbers[3]
+    self.c_id  ||= unique_random_numbers[4]
   end
 end
