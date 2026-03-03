@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  pg_id: 1
+  sg_id: 1
+  sf_id: 1
+  pf_id: 1
+  c_id: 1
+  session_token: MyString
+  ip_address: MyString
+
+two:
+  pg_id: 1
+  sg_id: 1
+  sf_id: 1
+  pf_id: 1
+  c_id: 1
+  session_token: MyString
+  ip_address: MyString

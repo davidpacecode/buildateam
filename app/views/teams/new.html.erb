@@ -1,0 +1,73 @@
+<% content_for :title, "New team" %>
+
+<h1>Pick your players. Win some shit</h1>
+
+<%# render "form", team: @team %>
+
+<%= form_with(model: @team) do |form| %>
+  <% if @team.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(@team.errors.count, "error") %> prohibited this team from being saved:</h2>
+
+      <ul>
+        <% @team.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <wa-split>
+    <wa-frame><%= image_tag "headshots/#{Player.find(@team.pg_id).headshot_file_name}", size: "100" %></wa-frame>
+    <wa-frame><%= image_tag "headshots/#{Player.find(@team.sg_id).headshot_file_name}", size: "100" %></wa-frame>
+    <wa-frame><%= image_tag "headshots/#{Player.find(@team.sf_id).headshot_file_name}", size: "100" %></wa-frame>
+    <wa-frame><%= image_tag "headshots/#{Player.find(@team.pf_id).headshot_file_name}", size: "100" %></wa-frame>
+    <wa-frame><%= image_tag "headshots/#{Player.find(@team.c_id).headshot_file_name}", size: "100" %></wa-frame>
+  </wa-split>
+
+
+  <div>
+    <%= form.label :pg_id, style: "display: block" %>
+    <%= form.number_field :pg_id %>
+  </div>
+
+  <div>
+    <%= form.label :sg_id, style: "display: block" %>
+    <%= form.number_field :sg_id %>
+  </div>
+
+  <div>
+    <%= form.label :sf_id, style: "display: block" %>
+    <%= form.number_field :sf_id %>
+  </div>
+
+  <div>
+    <%= form.label :pf_id, style: "display: block" %>
+    <%= form.number_field :pf_id %>
+  </div>
+
+  <div>
+    <%= form.label :c_id, style: "display: block" %>
+    <%= form.number_field :c_id %>
+  </div>
+
+  <div>
+    <%= form.label :session_token, style: "display: block" %>
+    <%= form.text_field :session_token %>
+  </div>
+
+  <div>
+    <%= form.label :ip_address, style: "display: block" %>
+    <%= form.text_field :ip_address %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
+
+<br>
+
+<div>
+  <%= link_to "Back to teams", teams_path %>
+</div>
