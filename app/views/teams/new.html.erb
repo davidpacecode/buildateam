@@ -2,50 +2,10 @@
 
 <h1>Pick your players. Win some shit</h1>
 
-<%# render "form", team: @team %>
-
-<%= form_with(model: @team) do |form| %>
-  <% if @team.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(@team.errors.count, "error") %> prohibited this team from being saved:</h2>
-
-      <ul>
-        <% @team.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <wa-radio-group name="team[position]">
-    <div class="wa-split">
-      <% ["pg", "sg", "sf", "pf", "c"].each do |pos| %>
-        <div class="wa-stack wa-align-items-center">
-          <div class="wa-frame" style="max-inline-size: 10rem;">
-            <% player = instance_variable_get("@#{pos}_id") %>
-            <%= image_tag "headshots/#{Player.find(player).headshot_file_name}", size: "100" %>
-          </div>
-          <wa-radio value="<%= pos %>"><%= pos.upcase %></wa-radio>
-        </div>
-      <% end %>
-    </div>
-  </wa-radio-group>
-
-  <%= form.hidden_field :pg_id, value: @pg_id %>
-  <%= form.hidden_field :sg_id, value: @sg_id %>
-  <%= form.hidden_field :sf_id, value: @sf_id %>
-  <%= form.hidden_field :pf_id, value: @pf_id %>
-  <%= form.hidden_field :c_id, value: @c_id %>
-
-  <div>
-    <%= form.submit %>
-  </div>
-<% end %>
+<%= render "form", team: @team %>
 
 <br>
 
 <div>
   <%= link_to "Back to teams", teams_path %>
 </div>
-
-

@@ -24,7 +24,32 @@ class TeamsController < ApplicationController
 
   # GET /teams/1/edit
   def edit
-  end
+
+    players_remaining = 0
+    players_remaining += 1 if @team.pg_id != 0
+    players_remaining += 1 if @team.sg_id != 0
+    players_remaining += 1 if @team.sf_id != 0
+    players_remaining += 1 if @team.pf_id != 0
+    players_remaining += 1 if @team.c_id != 0
+
+    if players_remaining == 0
+      redirect_to teams_path, notice: "Team is full."
+    end
+
+    unique_random_numbers = (1..100).to_a
+    unique_random_numbers.delete(@team.pg_id) if @team.pg_id != 0
+    unique_random_numbers.delete(@team.sg_id) if @team.sg_id != 0
+    unique_random_numbers.delete(@team.sf_id) if @team.sf_id != 0
+    unique_random_numbers.delete(@team.pf_id) if @team.pf_id != 0
+    unique_random_numbers.delete(@team.c_id) if @team.c_id != 0
+    unique_random_numbers.sample(players_remaining)
+
+    @team.pg_id == 0 ? @pg_id ||= 99 : @pg_id = @team.pg_id
+    @team.sg_id == 0 ? @sg_id ||= 99 : @sg_id = @team.sg_id
+    @team.sf_id == 0 ? @sf_id ||= 99 : @sf_id = @team.sf_id
+    @team.pf_id == 0 ? @pf_id ||= 99 : @pf_id = @team.pf_id
+    @team.c_id == 0 ? @c_id ||= 99 : @c_id = @team.c_id
+   end
 
   # POST /teams or /teams.json
   def create
@@ -41,7 +66,7 @@ class TeamsController < ApplicationController
 
     respond_to do |format|
       if @team.save
-        format.html { redirect_to @team, notice: "Team was successfully created." }
+        format.html { redirect_to edit_team_path(@team), notice: "Team was successfully created." }
         format.json { render :show, status: :created, location: @team }
       else
         format.html { render :new, status: :unprocessable_entity }

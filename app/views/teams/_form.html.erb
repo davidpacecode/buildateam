@@ -11,40 +11,25 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :pg_id, style: "display: block" %>
-    <%= form.number_field :pg_id %>
-  </div>
+  <wa-radio-group name="team[position]">
+    <div class="wa-split">
+      <% ["pg", "sg", "sf", "pf", "c"].each do |pos| %>
+        <div class="wa-stack wa-align-items-center">
+          <div class="wa-frame" style="max-inline-size: 10rem;">
+            <% player = instance_variable_get("@#{pos}_id") %>
+            <%= image_tag "headshots/#{Player.find(player).headshot_file_name}", size: "100" %>
+          </div>
+          <wa-radio value="<%= pos %>"><%= pos.upcase %></wa-radio>
+        </div>
+      <% end %>
+    </div>
+  </wa-radio-group>
 
-  <div>
-    <%= form.label :sg_id, style: "display: block" %>
-    <%= form.number_field :sg_id %>
-  </div>
-
-  <div>
-    <%= form.label :sf_id, style: "display: block" %>
-    <%= form.number_field :sf_id %>
-  </div>
-
-  <div>
-    <%= form.label :pf_id, style: "display: block" %>
-    <%= form.number_field :pf_id %>
-  </div>
-
-  <div>
-    <%= form.label :c_id, style: "display: block" %>
-    <%= form.number_field :c_id %>
-  </div>
-
-  <div>
-    <%= form.label :session_token, style: "display: block" %>
-    <%= form.text_field :session_token %>
-  </div>
-
-  <div>
-    <%= form.label :ip_address, style: "display: block" %>
-    <%= form.text_field :ip_address %>
-  </div>
+  <%= form.hidden_field :pg_id, value: @pg_id %>
+  <%= form.hidden_field :sg_id, value: @sg_id %>
+  <%= form.hidden_field :sf_id, value: @sf_id %>
+  <%= form.hidden_field :pf_id, value: @pf_id %>
+  <%= form.hidden_field :c_id, value: @c_id %>
 
   <div>
     <%= form.submit %>
