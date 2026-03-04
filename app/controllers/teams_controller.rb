@@ -33,6 +33,11 @@ class TeamsController < ApplicationController
     @team.session_token = session[:token]
     @team.ip_address = request.remote_ip
 
+    @team.pg_id = 0 unless params[:team][:position] == "pg"
+    @team.sg_id = 0 unless params[:team][:position] == "sg"
+    @team.sf_id = 0 unless params[:team][:position] == "sf"
+    @team.pf_id = 0 unless params[:team][:position] == "pf"
+    @team.c_id = 0 unless params[:team][:position] == "c"
 
     respond_to do |format|
       if @team.save
