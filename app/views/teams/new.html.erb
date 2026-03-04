@@ -18,39 +18,63 @@
   <% end %>
 
   <div class="wa-split">
-    <div class="wa-stack wa-align-items-center">
-      <div class="wa-frame" style="max-inline-size: 10rem;">
-        <%= image_tag "headshots/#{Player.find(@team.pg_id).headshot_file_name}", size: "100" %>
+    <% ["pg", "sg", "sf", "pf", "c"].each do |pos| %>
+      <div class="wa-stack wa-align-items-center">
+        <div class="wa-frame" style="max-inline-size: 10rem;">
+          <% player = instance_variable_get("@#{pos}_id") %>
+          <%= image_tag "headshots/#{Player.find(player).headshot_file_name}", size: "100" %>
+        </div>
+        <%= form.label :"position_#{pos.downcase}", pos.upcase %>
+        <%= form.radio_button :position, pos, checked: false %>
       </div>
-      <span class="wa-heading-s">Point Guard
-    </div>
-    <div class="wa-stack wa-align-items-center">
-      <div class="wa-frame" style="max-inline-size: 10rem;">
-        <%= image_tag "headshots/#{Player.find(@team.sg_id).headshot_file_name}", size: "100" %>
-      </div>
-      <span class="wa-heading-s">Shooting Guard</span>
-    </div>
-    <div class="wa-stack wa-align-items-center">
-      <div class="wa-frame" style="max-inline-size: 10rem;">
-        <%= image_tag "headshots/#{Player.find(@team.sf_id).headshot_file_name}", size: "100" %>
-      </div>
-      <span class="wa-heading-s">Strong Forward</span>
-    </div>
-    <div class="wa-stack wa-align-items-center">
-      <div class="wa-frame" style="max-inline-size: 10rem;">
-        <%= image_tag "headshots/#{Player.find(@team.pf_id).headshot_file_name}", size: "100" %>
-      </div>
-      <span class="wa-heading-s">Power Forward</span>
-    </div>
-    <div class="wa-stack wa-align-items-center">
-      <div class="wa-frame" style="max-inline-size: 10rem;">
-        <%= image_tag "headshots/#{Player.find(@team.c_id).headshot_file_name}", size: "100" %>
-      </div>
-      <span class="wa-heading-s">Center</span>
-    </div>
+    <% end %>
   </div>
 
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
 
+<br>
+
+<div>
+  <%= link_to "Back to teams", teams_path %>
+</div>
+
+<% if false %>
+  <div class="wa-stack wa-align-items-center">
+    <div class="wa-frame" style="max-inline-size: 10rem;">
+      <%= image_tag "headshots/#{Player.find(@pg_id).headshot_file_name}", size: "100" %>
+    </div>
+    <span class="wa-heading-s">Point Guard</span>
+  </div>
+  <div class="wa-stack wa-align-items-center">
+    <div class="wa-frame" style="max-inline-size: 10rem;">
+      <%= image_tag "headshots/#{Player.find(@sg_id).headshot_file_name}", size: "100" %>
+    </div>
+    <span class="wa-heading-s">Shooting Guard</span>
+  </div>
+  <div class="wa-stack wa-align-items-center">
+    <div class="wa-frame" style="max-inline-size: 10rem;">
+      <%= image_tag "headshots/#{Player.find(@sf_id).headshot_file_name}", size: "100" %>
+    </div>
+    <span class="wa-heading-s">Strong Forward</span>
+  </div>
+  <div class="wa-stack wa-align-items-center">
+    <div class="wa-frame" style="max-inline-size: 10rem;">
+      <%= image_tag "headshots/#{Player.find(@pf_id).headshot_file_name}", size: "100" %>
+    </div>
+    <span class="wa-heading-s">Power Forward</span>
+  </div>
+  <div class="wa-stack wa-align-items-center">
+    <div class="wa-frame" style="max-inline-size: 10rem;">
+      <%= image_tag "headshots/#{Player.find(@c_id).headshot_file_name}", size: "100" %>
+    </div>
+    <span class="wa-heading-s">Center</span>
+  </div>
+<% end %>
+
+<% if false %>
   <div>
     <%= form.label :pg_id, style: "display: block" %>
     <%= form.number_field :pg_id %>
@@ -85,14 +109,5 @@
     <%= form.label :ip_address, style: "display: block" %>
     <%= form.text_field :ip_address %>
   </div>
-
-  <div>
-    <%= form.submit %>
-  </div>
 <% end %>
 
-<br>
-
-<div>
-  <%= link_to "Back to teams", teams_path %>
-</div>

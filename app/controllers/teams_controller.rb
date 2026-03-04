@@ -13,6 +13,13 @@ class TeamsController < ApplicationController
   # GET /teams/new
   def new
     @team = Team.new
+
+    unique_random_numbers = (1..100).to_a.sample(5)
+    @pg_id ||= unique_random_numbers[0]
+    @sg_id ||= unique_random_numbers[1]
+    @sf_id ||= unique_random_numbers[2]
+    @pf_id ||= unique_random_numbers[3]
+    @c_id  ||= unique_random_numbers[4]
   end
 
   # GET /teams/1/edit
@@ -26,7 +33,6 @@ class TeamsController < ApplicationController
     @team.session_token = session[:token]
     @team.ip_address = request.remote_ip
 
-    @team.pg_id = 4
 
     respond_to do |format|
       if @team.save
