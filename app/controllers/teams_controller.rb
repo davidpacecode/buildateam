@@ -27,11 +27,6 @@ class TeamsController < ApplicationController
       players_taken << instance_variable_get("@#{pos.downcase}_id")
       temp_array.clear
     end
-
-    # @sg_id ||= unique_random_numbers[1]
-    # @sf_id ||= unique_random_numbers[2]
-    # @pf_id ||= unique_random_numbers[3]
-    # @c_id  ||= unique_random_numbers[4]
   end
 
   # GET /teams/1/edit
