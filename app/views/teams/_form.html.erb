@@ -20,6 +20,7 @@
             <%= image_tag "headshots/#{Player.find(player).headshot_file_name}", size: "100" %>
           </div>
           <wa-radio value="<%= pos %>"><%= pos.upcase %></wa-radio>
+          <%= "Position: #{Player.find(player).position.upcase}" %>
         </div>
       <% end %>
     </div>

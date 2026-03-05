@@ -14,12 +14,24 @@ class TeamsController < ApplicationController
   def new
     @team = Team.new
 
-    unique_random_numbers = (1..100).to_a.sample(5)
-    @pg_id ||= unique_random_numbers[0]
-    @sg_id ||= unique_random_numbers[1]
-    @sf_id ||= unique_random_numbers[2]
-    @pf_id ||= unique_random_numbers[3]
-    @c_id  ||= unique_random_numbers[4]
+    players_taken = []
+    temp_array = []
+
+    @pg_id ||= Player.who_play("PG").sample(1).first.id
+    players_taken << @pg_id
+
+    ["SG","SF","PF","C"].each do |pos|
+      temp_array = Player.who_play(pos)
+      temp_array -= players_taken
+      instance_variable_set("@#{pos.downcase}_id", temp_array.sample(1).first.id)
+      players_taken << instance_variable_get("@#{pos.downcase}_id")
+      temp_array.clear
+    end
+
+    # @sg_id ||= unique_random_numbers[1]
+    # @sf_id ||= unique_random_numbers[2]
+    # @pf_id ||= unique_random_numbers[3]
+    # @c_id  ||= unique_random_numbers[4]
   end
 
   # GET /teams/1/edit
