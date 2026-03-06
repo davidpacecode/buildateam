@@ -1,15 +1,48 @@
-<div id="<%= dom_id team %>">
-  <div class="wa-stack">
-      <div class="wa-split">
-        <% ["pg", "sg", "sf", "pf", "c"].each do |pos| %>
-          <div class="wa-stack wa-align-items-center">
-            <div class="wa-frame" style="max-inline-size: 10rem;">
-              <% player = instance_variable_get("@#{pos}_id") %>
-              <%= image_tag "headshots/#{Player.find(player).headshot_file_name}", size: "100" %>
-            </div>
-            <%= "Position: #{Player.find(player).position.upcase}" %>
-          </div>
-        <% end %>
-      </div>
+   <div>
+    <strong>Sg:</strong>
+    <%= team.sg_id %>
   </div>
-</div>
+
+  <div>
+    <strong>Sf:</strong>
+    <%= team.sf_id %>
+  </div>
+
+  <div>
+    <strong>Pf:</strong>
+    <%= team.pf_id %>
+  </div>
+
+  <div>
+    <strong>C:</strong>
+    <%= team.c_id %>
+  </div>
+
+  <div>
+    <strong>Session token:</strong>
+    <%= team.session_token %>
+  </div>
+
+  <div>
+    <strong>Ip address:</strong>
+    <%= team.ip_address %>
+  </div>
+
+
+<% if false %>
+ <div id="<%= dom_id team %>">
+   <div class="wa-stack">
+     <div class="wa-split">
+       <% ["pg", "sg", "sf", "pf", "c"].each do |pos| %>
+         <div class="wa-stack wa-align-items-center">
+           <div class="wa-frame" style="max-inline-size: 10rem;">
+             <% player = instance_variable_get("@#{pos}_id") %>
+             <%= image_tag "headshots/#{Player.find(player).headshot_file_name}", size: "100" %>
+           </div>
+           <%= "Position: #{Player.find(player).position.upcase}" %>
+         </div>
+       <% end %>
+     </div>
+   </div>
+ </div>
+<% end %>
