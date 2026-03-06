@@ -32,31 +32,20 @@ class TeamsController < ApplicationController
   # GET /teams/1/edit
   def edit
 
-    players_remaining = 0
-    players_remaining += 1 if @team.pg_id != 0
-    players_remaining += 1 if @team.sg_id != 0
-    players_remaining += 1 if @team.sf_id != 0
-    players_remaining += 1 if @team.pf_id != 0
-    players_remaining += 1 if @team.c_id != 0
+    temp_array = []
 
-    if players_remaining == 0
-      redirect_to teams_path, notice: "Team is full."
+    ["pg", "sg", "sf", "pf", "c"].each do |pos|
+      if @team.send("#{pos}_id") == 0
+        temp_array = Player.who_play(pos)
+        temp_array -= @team.players
+        instance_variable_set("@#{pos.downcase}_id", temp_array.sample(1).first.id)
+        temp_array.clear
+      else
+        instance_variable_set("@#{pos.downcase}_id", @team.send("#{pos}_id"))
+      end
     end
 
-    unique_random_numbers = (1..100).to_a
-    unique_random_numbers.delete(@team.pg_id) if @team.pg_id != 0
-    unique_random_numbers.delete(@team.sg_id) if @team.sg_id != 0
-    unique_random_numbers.delete(@team.sf_id) if @team.sf_id != 0
-    unique_random_numbers.delete(@team.pf_id) if @team.pf_id != 0
-    unique_random_numbers.delete(@team.c_id) if @team.c_id != 0
-    unique_random_numbers.sample(players_remaining)
-
-    @team.pg_id == 0 ? @pg_id ||= 99 : @pg_id = @team.pg_id
-    @team.sg_id == 0 ? @sg_id ||= 99 : @sg_id = @team.sg_id
-    @team.sf_id == 0 ? @sf_id ||= 99 : @sf_id = @team.sf_id
-    @team.pf_id == 0 ? @pf_id ||= 99 : @pf_id = @team.pf_id
-    @team.c_id == 0 ? @c_id ||= 99 : @c_id = @team.c_id
-   end
+  end
 
   # POST /teams or /teams.json
   def create
@@ -84,15 +73,52 @@ class TeamsController < ApplicationController
 
   # PATCH/PUT /teams/1 or /teams/1.json
   def update
+
     respond_to do |format|
-      if @team.update(team_params)
-        format.html { redirect_to @team, notice: "Team was successfully updated.", status: :see_other }
-        format.json { render :show, status: :ok, location: @team }
+      # @team.send("#{params[:team][:position]}_id") == "#{params[:team][:position]}_id"
+      case params[:team][:position]
+      when "pg"
+        @team.pg_id = params[:team][:pg_id]
+      when "sg"
+        @team.sg_id = params[:team][:sg_id]
+      when "sf"
+        @team.sf_id = params[:team][:sf_id]
+      when "pf"
+        @team.pf_id = params[:team][:pf_id]
+      when "c"
+        @team.c_id = params[:team][:c_id]
+      else
+        "something went wrong"
+      end
+
+      if @team.save
+        if @team.open_spots_left == 0
+          format.html { redirect_to @team, notice: "Team was successfully updated.", status: :see_other }
+          format.json { render :show, status: :ok, location: @team }
+        else
+          redirect_to edit_team_path(@team), notice: "Team was successfully updated."
+        end
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @team.errors, status: :unprocessable_entity }
       end
     end
+
+
+
+    # respond_to do |format|
+    #   if @team.update(team_params)
+    #     if @team.open_spots_left == 0
+    #       format.html { redirect_to @team, notice: "Team was successfully updated.", status: :see_other }
+    #       format.json { render :show, status: :ok, location: @team }
+    #     else
+    #       redirect_to edit_team_path(@team), notice: "Team was successfully updated."
+    #     end
+    #   else
+    #     format.html { render :edit, status: :unprocessable_entity }
+    #     format.json { render json: @team.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   # DELETE /teams/1 or /teams/1.json

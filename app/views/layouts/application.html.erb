@@ -27,6 +27,14 @@
   </head>
 
   <body>
-    <%= yield %>
+    <wa-page>
+      <header slot="header">
+        <a href="/"><wa-button variant="neutral" appearance="outlined"><wa-icon name="house" label="Home"></wa-icon></wa-button></a>
+      </header>
+
+      <main>
+        <%= yield %>
+      </main>
+    </wa-page>
   </body>
 </html>
