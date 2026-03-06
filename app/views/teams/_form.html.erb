@@ -11,28 +11,35 @@
     </div>
   <% end %>
 
-  <wa-radio-group name="team[position]">
-    <div class="wa-split">
-      <% ["pg", "sg", "sf", "pf", "c"].each do |pos| %>
-        <div class="wa-stack wa-align-items-center">
-          <div class="wa-frame" style="max-inline-size: 10rem;">
-            <% player = instance_variable_get("@#{pos}_id") %>
-            <%= image_tag "headshots/#{Player.find(player).headshot_file_name}", size: "100" %>
+  <div class="wa-stack">
+    <wa-radio-group name="team[position]">
+      <div class="wa-split">
+        <% ["pg", "sg", "sf", "pf", "c"].each do |pos| %>
+          <div class="wa-stack wa-align-items-center">
+            <div class="wa-frame" style="max-inline-size: 10rem;">
+              <% player = instance_variable_get("@#{pos}_id") %>
+              <%= image_tag "headshots/#{Player.find(player).headshot_file_name}", size: "100" %>
+            </div>
+            <%# if team.send("#{pos.downcase}_id") == 0 && @new_team == false %>
+            <% if @new_team || team.send("#{pos.downcase}_id") == 0 %>
+              <wa-radio value="<%= pos %>"><%= pos.upcase %></wa-radio>
+            <% else %>
+              <wa-icon name="lock" style="color: rgb(10, 67, 168);"></wa-icon>
+            <% end %>
+            <%# "Position: #{Player.find(player).position.upcase}" %>
           </div>
-          <wa-radio value="<%= pos %>"><%= pos.upcase %></wa-radio>
-          <%= "Position: #{Player.find(player).position.upcase}" %>
-        </div>
-      <% end %>
+        <% end %>
+      </div>
+    </wa-radio-group>
+
+    <%= form.hidden_field :pg_id, value: @pg_id %>
+    <%= form.hidden_field :sg_id, value: @sg_id %>
+    <%= form.hidden_field :sf_id, value: @sf_id %>
+    <%= form.hidden_field :pf_id, value: @pf_id %>
+    <%= form.hidden_field :c_id, value: @c_id %>
+
+    <div>
+      <%= form.submit "Claim selected player" %>
     </div>
-  </wa-radio-group>
-
-  <%= form.hidden_field :pg_id, value: @pg_id %>
-  <%= form.hidden_field :sg_id, value: @sg_id %>
-  <%= form.hidden_field :sf_id, value: @sf_id %>
-  <%= form.hidden_field :pf_id, value: @pf_id %>
-  <%= form.hidden_field :c_id, value: @c_id %>
-
-  <div>
-    <%= form.submit %>
   </div>
 <% end %>

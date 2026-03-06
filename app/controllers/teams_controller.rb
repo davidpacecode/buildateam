@@ -14,6 +14,7 @@ class TeamsController < ApplicationController
   def new
     @team = Team.new
 
+    @new_team = true
     players_taken = []
     temp_array = []
 
@@ -32,6 +33,7 @@ class TeamsController < ApplicationController
   # GET /teams/1/edit
   def edit
 
+    @new_team = false
     temp_array = []
 
     ["pg", "sg", "sf", "pf", "c"].each do |pos|
@@ -103,8 +105,6 @@ class TeamsController < ApplicationController
         format.json { render json: @team.errors, status: :unprocessable_entity }
       end
     end
-
-
 
     # respond_to do |format|
     #   if @team.update(team_params)
