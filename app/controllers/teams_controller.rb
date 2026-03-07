@@ -26,7 +26,7 @@ class TeamsController < ApplicationController
     @pg_id ||= Player.who_play("PG").sample(1).first.id
     players_taken << @pg_id
 
-    ["SG","SF","PF","C"].each do |pos|
+    [ "SG", "SF", "PF", "C" ].each do |pos|
       temp_array = Player.who_play(pos)
       temp_array -= players_taken
       instance_variable_set("@#{pos.downcase}_id", temp_array.sample(1).first.id)
@@ -37,11 +37,10 @@ class TeamsController < ApplicationController
 
   # GET /teams/1/edit
   def edit
-
     @new_team = false
     temp_array = []
 
-    ["pg", "sg", "sf", "pf", "c"].each do |pos|
+    [ "pg", "sg", "sf", "pf", "c" ].each do |pos|
       if @team.send("#{pos}_id") == 0
         temp_array = Player.who_play(pos)
         temp_array -= @team.players
@@ -51,7 +50,6 @@ class TeamsController < ApplicationController
         instance_variable_set("@#{pos.downcase}_id", @team.send("#{pos}_id"))
       end
     end
-
   end
 
   # POST /teams or /teams.json
@@ -80,7 +78,6 @@ class TeamsController < ApplicationController
 
   # PATCH/PUT /teams/1 or /teams/1.json
   def update
-
     respond_to do |format|
       # @team.send("#{params[:team][:position]}_id") == "#{params[:team][:position]}_id"
       case params[:team][:position]
@@ -103,7 +100,8 @@ class TeamsController < ApplicationController
           format.html { redirect_to @team, notice: "Team was successfully updated.", status: :see_other }
           format.json { render :show, status: :ok, location: @team }
         else
-          redirect_to edit_team_path(@team), notice: "Team was successfully updated."
+          format.html { redirect_to edit_team_path(@team), notice: "Team was successfully updated.", status: :see_other }
+          format.json { render :show, status: :ok, location: @team }
         end
       else
         format.html { render :edit, status: :unprocessable_entity }
