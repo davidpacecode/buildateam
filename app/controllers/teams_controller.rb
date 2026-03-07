@@ -8,6 +8,11 @@ class TeamsController < ApplicationController
 
   # GET /teams/1 or /teams/1.json
   def show
+    @pg_id = @team.pg_id
+    @sg_id = @team.sg_id
+    @sf_id = @team.sf_id
+    @pf_id = @team.pf_id
+    @c_id = @team.c_id
   end
 
   # GET /teams/new

@@ -23,4 +23,12 @@ class Team < ApplicationRecord
     end
     players
   end
+
+  def average_rating
+    total = 0
+    self.players.each do |player|
+      total += Player.find(player).overall
+    end
+    total / self.players.count
+  end
 end
