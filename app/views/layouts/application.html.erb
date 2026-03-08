@@ -29,7 +29,12 @@
   <body>
     <wa-page>
       <header slot="header">
-        <a href="/"><wa-button variant="neutral" appearance="outlined"><wa-icon name="house" label="Home"></wa-icon></wa-button></a>
+        <%= link_to root_path, class: "wa-align-items-center", style: "text-decoration: none;" do %>
+          <wa-icon name="basketball-hoop" family="sharp-duotone" variant="thin"
+            style="font-size: 3em;  --primary-color: rgb(80, 35, 30); --primary-opacity: 0.87;
+            --secondary-color: rgb(80, 35, 30);"></wa-icon>
+          <span class="wa-heading-3xl">Build a Team</span>
+        <% end %>
       </header>
 
       <main>

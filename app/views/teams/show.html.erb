@@ -1,9 +1,12 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>Average Rating: <%= @team.average_rating %></h1>
-<br>
+<%= turbo_frame_tag "edit_team_form" do %>
 
-<%= render @team %>
+  <h3>Average Rating: <%= @team.average_rating %></h3>
+  <br>
+
+  <%= render @team %>
+<% end %>
 
 <div>
   <%= link_to "Edit this team", edit_team_path(@team) %> |
