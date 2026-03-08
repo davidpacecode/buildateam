@@ -7,30 +7,17 @@
             <% player = instance_variable_get("@#{pos}_id") %>
             <%= image_tag "headshots/#{Player.find(player).headshot_file_name}", size: "100" %>
           </div>
-          <%= "Name: #{Player.find(player).first_name} #{Player.find(player).last_name}" %>
-          <br>
-          <%= "Position: #{Player.find(player).position.upcase}" %>
-          <br>
-          <%= "Team: #{Player.find(player).team}" %>
+          <div class="wa-cluster">
+            <span class="wa-font-weight-bold"><%= "Name: " %></span><span><%= "#{Player.find(player).first_name} #{Player.find(player).last_name}" %></span>
+          </div>
+          <div class="wa-cluster">
+            <span><strong><%= "Position: " %></strong><%= "#{Player.find(player).position.upcase}" %></span>
+          </div>
+          <div class="wa-cluster">
+            <span><strong><%= "Team: " %></strong><%= "#{Player.find(player).team}" %></span>
+          </div>
         </div>
       <% end %>
     </div>
   </div>
 </div>
-
-<% if false %>
-   <div class="wa-stack">
-     <div class="wa-split">
-       <% ["pg", "sg", "sf", "pf", "c"].each do |pos| %>
-         <div class="wa-stack wa-align-items-center">
-           <div class="wa-frame" style="max-inline-size: 10rem;">
-             <% player = instance_variable_get("@#{pos}_id") %>
-             <%= image_tag "headshots/#{Player.find(player).headshot_file_name}", size: "100" %>
-           </div>
-           <%= "Position: #{Player.find(player).position.upcase}" %>
-         </div>
-       <% end %>
-     </div>
-   </div>
- </div>
-<% end %>

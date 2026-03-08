@@ -19,7 +19,7 @@
             <div class="wa-stack wa-align-items-center">
               <div class="wa-frame" style="max-inline-size: 10rem;">
                 <% player = instance_variable_get("@#{pos}_id") %>
-                <%= image_tag "headshots/#{Player.find(player).headshot_file_name}", size: "100" %>
+                <%= image_tag "headshots/#{Player.find(player).headshot_file_name}", size: "25" %>
               </div>
               <%# if team.send("#{pos.downcase}_id") == 0 && @new_team == false %>
               <% if @new_team || team.send("#{pos.downcase}_id") == 0 %>
