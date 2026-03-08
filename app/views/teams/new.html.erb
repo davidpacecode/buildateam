@@ -1,9 +1,7 @@
 <% content_for :title, "New team" %>
 
-<%= turbo_frame_tag "edit_team_form" do %>
-  <%= render "form", team: @team %>
-  <br>
-<% end %>
+<%= render "form", team: @team %>
+<br>
 
 <div>
   <%# link_to "Back to teams", teams_path %>
