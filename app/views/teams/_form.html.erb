@@ -14,23 +14,21 @@
 
     <div class="wa-stack">
       <wa-radio-group name="team[position]">
-        <div class="wa-split">
+        <div class="wa-split" style="max-width: 900px;">
           <% ["pg", "sg", "sf", "pf", "c"].each do |pos| %>
-            <div class="wa-stack wa-align-items-center">
-              <div class="wa-frame" style="max-inline-size: 10rem;">
+            <wa-card appearance="<%= card_appearance(@new_team,team,pos) %>" style="max-width: 150px;">
+              <div class="wa-frame" slot="media">
                 <% player = instance_variable_get("@#{pos}_id") %>
-                <wa-animation name="fadeIn" easing="ease-in-out" duration="2000" iterations="1" play>
-                  <%= image_tag "headshots/#{Player.find(player).headshot_file_name}", size: "50" %>
-                </wa-animation>
+                <%= image_tag "headshots/#{Player.find(player).headshot_file_name}" %>
               </div>
-              <%# if team.send("#{pos.downcase}_id") == 0 && @new_team == false %>
-              <% if @new_team || team.send("#{pos.downcase}_id") == 0 %>
-                <wa-radio value="<%= pos %>"><%= pos.upcase %></wa-radio>
-              <% else %>
-                <wa-icon name="lock" style="color: rgb(10, 67, 168);"></wa-icon>
-              <% end %>
-              <%# "Position: #{Player.find(player).position.upcase}" %>
-            </div>
+              <div class="wa-stack wa-gap-xs wa-align-items-center">
+                <% if @new_team || team.send("#{pos.downcase}_id") == 0 %>
+                  <wa-radio value="<%= pos %>"><%= pos.upcase %></wa-radio>
+                <% else %>
+                  <wa-icon name="lock" style="color: rgb(10, 67, 168);"></wa-icon>
+                <% end %>
+              </div>
+            </wa-card>
           <% end %>
         </div>
       </wa-radio-group>
