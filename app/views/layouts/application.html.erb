@@ -37,9 +37,17 @@
         <% end %>
       </header>
 
+      <nav slot="navigation" class="wa-body-l">
+        <%= link_to "About", about_path, class: "wa-link-plain" %>
+      </nav>
+
       <main>
         <%= yield %>
       </main>
+
+      <footer slot="footer" class="wa-body-l">
+        <span>Made with <wa-icon name="heart" family="utility-duo" variant="semibold" style="font-size: 1.25em;  --primary-color: rgb(255, 26, 0); --secondary-color: rgb(255, 26, 0);"></wa-icon> in Austin, TX</span>
+      </footer>
     </wa-page>
   </body>
 </html>
