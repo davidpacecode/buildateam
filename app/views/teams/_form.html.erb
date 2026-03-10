@@ -21,7 +21,7 @@
                 <% player = instance_variable_get("@#{pos}_id") %>
                 <%= image_tag "headshots/#{Player.find(player).headshot_file_name}" %>
               </div>
-              <div class="wa-stack wa-gap-xs wa-align-items-center">
+              <div class="wa-stack wa-gap-xs wa-align-items-center" style="min-height: 2rem; justify-content: center;">
                 <% if @new_team || team.send("#{pos.downcase}_id") == 0 %>
                   <wa-radio value="<%= pos %>"><%= pos.upcase %></wa-radio>
                 <% else %>
