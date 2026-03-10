@@ -13,7 +13,7 @@
     <% end %>
 
     <div class="wa-stack">
-      <wa-radio-group name="team[position]">
+      <wa-radio-group name="team[position]" required>
         <div class="wa-split" style="max-width: 900px;">
           <% ["pg", "sg", "sf", "pf", "c"].each do |pos| %>
             <wa-card appearance="<%= card_appearance(@new_team,team,pos) %>" style="max-width: 150px;">
@@ -45,3 +45,13 @@
     </div>
   <% end %>
 <% end %>
+
+<script>
+  const form = document.querySelector('.validation');
+
+  // Handle form submit
+  form.addEventListener('submit', event => {
+    event.preventDefault();
+    alert('All fields are valid!');
+  });
+</script>
