@@ -35,13 +35,16 @@ class TeamsController < ApplicationController
   # GET /teams/1/edit
   def edit
     @new_team = false
+    players_taken = @team.players.dup
 
     [ "pg", "sg", "sf", "pf", "c" ].each do |pos|
       if @team.send("#{pos}_id") == 0
-        temp_array = Player.who_play(pos.upcase).where.not(id: @team.players)
-        instance_variable_set("@#{pos.downcase}_id", temp_array.sample(1).first.id)
+        temp_array = Player.who_play(pos.upcase).where.not(id: players_taken)
+        picked_id = temp_array.sample(1).first.id
+        instance_variable_set("@#{pos}_id", picked_id)
+        players_taken << picked_id
       else
-        instance_variable_set("@#{pos.downcase}_id", @team.send("#{pos}_id"))
+        instance_variable_set("@#{pos}_id", @team.send("#{pos}_id"))
       end
     end
   end

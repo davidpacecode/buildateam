@@ -40,6 +40,9 @@
       <%= form.hidden_field :c_id, value: @c_id %>
 
       <div>
+        <%= "players on this team are #{@team.players}" %>
+      </div>
+      <div>
         <%= form.submit "Claim selected player" %>
       </div>
     </div>
