@@ -38,7 +38,10 @@
       </header>
 
       <nav slot="navigation" class="wa-body-l">
-        <%= link_to "About", about_path, class: "wa-link-plain" %>
+        <ul>
+          <li><%= link_to "Leaderboard", "/teams/leaderboard", class: "wa-link-plain" %></li>
+          <li><%= link_to "About", about_path, class: "wa-link-plain" %></li>
+        </ul>
       </nav>
 
       <main>

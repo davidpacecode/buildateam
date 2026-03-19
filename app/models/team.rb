@@ -25,10 +25,14 @@ class Team < ApplicationRecord
   end
 
   def average_rating
-    total = 0
-    self.players.each do |player|
-      total += Player.find(player).overall
+    if self.players.count != 5
+      0.0
+    else
+      total = 0.0
+      self.players.each do |player|
+        total += Player.find(player).overall.to_f
+      end
+      total / self.players.count.to_f
     end
-    total / self.players.count
   end
 end

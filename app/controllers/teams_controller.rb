@@ -102,20 +102,6 @@ class TeamsController < ApplicationController
         format.json { render json: @team.errors, status: :unprocessable_entity }
       end
     end
-
-    # respond_to do |format|
-    #   if @team.update(team_params)
-    #     if @team.open_spots_left == 0
-    #       format.html { redirect_to @team, notice: "Team was successfully updated.", status: :see_other }
-    #       format.json { render :show, status: :ok, location: @team }
-    #     else
-    #       redirect_to edit_team_path(@team), notice: "Team was successfully updated."
-    #     end
-    #   else
-    #     format.html { render :edit, status: :unprocessable_entity }
-    #     format.json { render json: @team.errors, status: :unprocessable_entity }
-    #   end
-    # end
   end
 
   # DELETE /teams/1 or /teams/1.json
@@ -126,6 +112,10 @@ class TeamsController < ApplicationController
       format.html { redirect_to teams_path, notice: "Team was successfully destroyed.", status: :see_other }
       format.json { head :no_content }
     end
+  end
+
+  def leaderboard
+    @top_ten = Team.all.sort_by(&:average_rating).reverse.first(10)
   end
 
   private

@@ -1,0 +1,25 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Leaderboard" %>
+
+<h3>Leaderboard</h3>
+
+<div id="leaderboard">
+  <table>
+    <caption>Top Ten All Time</caption>
+    <thead>
+      <tr class="wa-heading-m">
+        <td>Rating</td>
+        <td>Achieved on</td>
+      </tr>
+    </thead>
+    <tbody>
+    <% @top_ten.each do |team| %>
+      <tr>
+        <td><%= "#{team.average_rating}" %></td>
+        <td><%= "#{team.created_at.strftime("%B %d, %Y")}" %></td>
+      </tr>
+    <% end %>
+    </tbody>
+    </table>
+</div>

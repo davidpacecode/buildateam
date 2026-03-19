@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  resources :teams
+  resources :teams do
+    get :leaderboard, on: :collection
+  end
   resources :players
   get "pages/index"
   get "about", to: "pages#about"
