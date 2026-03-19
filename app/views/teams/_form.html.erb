@@ -17,9 +17,9 @@
         <div class="wa-split" style="max-width: 900px;">
           <% ["pg", "sg", "sf", "pf", "c"].each do |pos| %>
             <wa-card appearance="<%= card_appearance(@new_team,team,pos) %>" style="max-width: 150px;">
-              <div class="wa-frame" slot="media">
+              <div class="wa-frame" slot="media" style="height: 140px; overflow: hidden;">
                 <% player = instance_variable_get("@#{pos}_id") %>
-                <%= image_tag "headshots/#{Player.find(player).headshot_file_name}" %>
+                <%= image_tag "headshots/#{Player.find(player).headshot_file_name}", style: "width: 100%; height: 100%; object-fit: cover; object-position: top;" %>
               </div>
               <div class="wa-stack wa-gap-xs wa-align-items-center" style="min-height: 2rem; justify-content: center;">
                 <% if @new_team || team.send("#{pos.downcase}_id") == 0 %>

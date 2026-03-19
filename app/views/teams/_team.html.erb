@@ -7,10 +7,10 @@
             <% player = instance_variable_get("@#{pos}_id") %>
             <%= image_tag "headshots/#{Player.find(player).headshot_file_name}", id: pos %>
           </div>
-          <div class="wa-stack wa-align-items-center">
+          <div class="wa-stack wa-align-items-left">
             <wa-tooltip for="<%= pos %>"><%= "#{Player.find(player).first_name} #{Player.find(player).last_name}" %></wa-tooltip>
             <div class="wa-cluster">
-              <span><strong><%= "Position: " %></strong><%= "#{Player.find(player).position.upcase}" %></span>
+              <span><strong><%= "Position: " %></strong><%= "#{pos.upcase}" %></span>
             </div>
             <div class="wa-cluster">
               <span><strong><%= "Team: " %></strong><%= "#{Player.find(player).team}" %></span>
