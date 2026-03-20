@@ -118,7 +118,7 @@ class TeamsController < ApplicationController
   end
 
   def leaderboard
-    @top_ten = Team.all.sort_by(&:average_rating).reverse.first(10)
+    @top_ten = Team.all.sort_by(&:average_rating).reverse.first(20)
   end
 
   private
