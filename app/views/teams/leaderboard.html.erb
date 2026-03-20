@@ -16,7 +16,7 @@
     <tbody>
     <% @top_ten.each do |team| %>
       <tr>
-        <td><%= "#{team.average_rating}" %></td>
+        <td><%= link_to "#{team.average_rating}", team %></td>
         <td><%= "#{team.created_at.strftime("%B %d, %Y")}" %></td>
       </tr>
     <% end %>
