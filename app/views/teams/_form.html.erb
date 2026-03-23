@@ -14,7 +14,7 @@
 
     <div class="wa-stack">
       <wa-radio-group id="position_picker" name="team[position]" orientation="horizontal" required>
-        <div class="wa-split" style="max-width: 900px;">
+        <div class="wa-split" style="max-width: 950px;">
           <% ["pg", "sg", "sf", "pf", "c"].each do |pos| %>
             <% if @new_team || team.send("#{pos.downcase}_id") == 0 %>
               <wa-radio appearance="button" value="<%= pos %>">
