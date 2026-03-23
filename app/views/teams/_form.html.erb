@@ -1,5 +1,5 @@
 <%= turbo_frame_tag "edit_team_form" do %>
-  <%= form_with(model: team) do |form| %>
+  <%= form_with(model: team, html: { id: "player_claim_form" }) do |form| %>
     <% if team.errors.any? %>
       <div style="color: red">
         <h2><%= pluralize(team.errors.count, "error") %> prohibited this team from being saved:</h2>
@@ -13,22 +13,28 @@
     <% end %>
 
     <div class="wa-stack">
-      <wa-radio-group name="team[position]" required>
+      <wa-radio-group id="position_picker" name="team[position]" orientation="horizontal" required>
         <div class="wa-split" style="max-width: 900px;">
           <% ["pg", "sg", "sf", "pf", "c"].each do |pos| %>
-            <wa-card appearance="<%= card_appearance(@new_team,team,pos) %>" style="max-width: 150px;">
-              <div class="wa-frame" slot="media" style="height: 140px; overflow: hidden;">
-                <% player = instance_variable_get("@#{pos}_id") %>
-                <%= image_tag "headshots/#{Player.find(player).headshot_file_name}", style: "width: 100%; height: 100%; object-fit: cover; object-position: top;" %>
-              </div>
-              <div class="wa-stack wa-gap-xs wa-align-items-center" style="min-height: 2rem; justify-content: center;">
-                <% if @new_team || team.send("#{pos.downcase}_id") == 0 %>
-                  <wa-radio value="<%= pos %>"><%= pos.upcase %></wa-radio>
-                <% else %>
-                  <wa-icon name="lock" style="color: rgb(10, 67, 168);"></wa-icon>
-                <% end %>
-              </div>
-            </wa-card>
+            <% if @new_team || team.send("#{pos.downcase}_id") == 0 %>
+              <wa-radio appearance="button" value="<%= pos %>">
+            <% end %>
+                <wa-card appearance="<%= card_appearance(@new_team,team,pos) %>" style="max-width: 150px;">
+                  <div class="wa-frame" slot="media" style="height: 140px; overflow: hidden;">
+                    <% player = instance_variable_get("@#{pos}_id") %>
+                    <%= image_tag "headshots/#{Player.find(player).headshot_file_name}", style: "width: 100%; height: 100%; object-fit: cover; object-position: top;" %>
+                  </div>
+                  <div class="wa-stack wa-gap-xs wa-align-items-center" style="min-height: 2rem; justify-content: center;">
+                    <% if @new_team || team.send("#{pos.downcase}_id") == 0 %>
+                      <%= pos.upcase %>
+                    <% else %>
+                      <wa-icon name="lock" style="color: rgb(10, 67, 168);"></wa-icon>
+                    <% end %>
+                  </div>
+                </wa-card>
+            <% if @new_team || team.send("#{pos.downcase}_id") == 0 %>
+              </wa-radio>
+            <% end %>
           <% end %>
         </div>
       </wa-radio-group>
@@ -40,21 +46,18 @@
       <%= form.hidden_field :c_id, value: @c_id %>
 
       <div>
-        <%= form.submit "Claim selected player" %>
-      </div>
-      <div>
         <%= link_to "This team sucks...restart", new_team_path %>
       </div>
     </div>
   <% end %>
+
+  <script>
+    document.addEventListener('change', function(event) {
+      if (event.target.id === 'position_picker') {
+        document.getElementById('player_claim_form').requestSubmit();
+      }
+    });
+  </script>
 <% end %>
 
-<script>
-  const form = document.querySelector('.validation');
 
-  // Handle form submit
-  form.addEventListener('submit', event => {
-    event.preventDefault();
-    alert('All fields are valid!');
-  });
-</script>
