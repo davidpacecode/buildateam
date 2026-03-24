@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   resources :teams do
     get :leaderboard, on: :collection
+    patch :update_nickname, on: :member
   end
   resources :players
   get "pages/index"

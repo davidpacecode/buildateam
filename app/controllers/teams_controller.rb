@@ -1,5 +1,5 @@
 class TeamsController < ApplicationController
-  before_action :set_team, only: %i[ show edit update destroy ]
+  before_action :set_team, only: %i[ show edit update update_nickname destroy ]
 
   # GET /teams or /teams.json
   def index
@@ -107,6 +107,22 @@ class TeamsController < ApplicationController
     end
   end
 
+  # add this...
+  def update_nickname
+    respond_to do |format|
+      @team.nickname = params[:team][:nickname]
+
+      if @team.save
+          format.html { redirect_to @team, notice: "Team was successfully updated.", status: :see_other }
+          format.json { render :show, status: :ok, location: @team }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @team.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+
   # DELETE /teams/1 or /teams/1.json
   def destroy
     @team.destroy!
@@ -118,7 +134,7 @@ class TeamsController < ApplicationController
   end
 
   def leaderboard
-    @top_ten = Team.all.sort_by(&:average_rating).reverse.first(20)
+    @top_ten = Team.all.sort_by(&:average_rating).reverse.first(50)
   end
 
   private
@@ -129,6 +145,6 @@ class TeamsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def team_params
-      params.expect(team: [ :pg_id, :sg_id, :sf_id, :pf_id, :c_id, :session_token, :ip_address ])
+      params.expect(team: [ :pg_id, :sg_id, :sf_id, :pf_id, :c_id, :nickname, :session_token, :ip_address ])
     end
 end

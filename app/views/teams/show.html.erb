@@ -5,6 +5,22 @@
   <h3>Average Rating: <%= @team.average_rating %></h3>
   <br>
 
+  <%= turbo_frame_tag "add_nickname_to_team" do %>
+    <% if @team.nickname == nil %>
+      <%= form_with model: @team, url: update_nickname_team_path(@team), method: :patch do |f| %>
+        <%= f.label :nickname, "Nickname" %>
+        <%= f.text_field :nickname %>
+        <%= f.submit "Update" %>
+      <% end %>
+      <br>
+      <br>
+    <% else %>
+      <span><strong>Nickname: </strong><%= "#{@team.nickname}" %></span>
+      <br>
+      <br>
+    <% end %>
+  <% end %>
+
   <%= render @team %>
 
   <br>

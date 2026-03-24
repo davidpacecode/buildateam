@@ -6,10 +6,11 @@
 
 <div id="leaderboard">
   <table>
-    <caption>Top 20 All Time</caption>
+    <caption>Top 50 All Time</caption>
     <thead>
       <tr class="wa-heading-m">
         <td>Rating</td>
+        <td>Achieved by</td>
         <td>Achieved on</td>
       </tr>
     </thead>
@@ -17,6 +18,7 @@
     <% @top_ten.each do |team| %>
       <tr>
         <td><%= link_to "#{team.average_rating}", team %></td>
+        <td><%= "#{team.nickname}" %></td>
         <td><%= "#{team.created_at.strftime("%B %d, %Y")}" %></td>
       </tr>
     <% end %>
